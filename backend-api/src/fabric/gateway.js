@@ -46,13 +46,11 @@ class SimpleFabricContract {
                 createdAt: new Date()
             };
 
-            if (useDatabase) {
-                await new MedicalRecord(record).save();
-            } else {
-                memoryStore.set(recordId, record);
-            }
+            // Store in memory for blockchain simulation
+            // (Controller handles actual MongoDB persistence with full record data)
+            memoryStore.set(recordId, record);
 
-            console.log(`✅ Stored: ${recordId}`);
+            console.log(`✅ Fabric: Stored blockchain metadata for ${recordId}`);
             return Buffer.from(JSON.stringify({
                 recordId: record.recordId,
                 protectionId: record.protectionId,
