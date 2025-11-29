@@ -48,7 +48,13 @@ export default function PatientRecordsPage() {
     const fetchRecords = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`${backendUrl}/api/patient/records/${session?.user?.patientId}?status=${activeTab}`);
+            const res = await fetch(`${backendUrl}/api/patient/records/${session?.user?.patientId}?status=${activeTab}`, {
+                headers: {
+                    'x-user-email': session?.user?.email || '',
+                    'x-user-role': session?.user?.role || 'patient',
+                    'x-patient-id': session?.user?.patientId || '',
+                },
+            });
             const data = await res.json();
 
             if (data.success) {
@@ -120,7 +126,12 @@ export default function PatientRecordsPage() {
         try {
             const res = await fetch(`${backendUrl}/api/patient/records/${editForm.recordId}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    'x-user-email': session?.user?.email || '',
+                    'x-user-role': session?.user?.role || 'patient',
+                    'x-patient-id': session?.user?.patientId || '',
+                },
                 body: JSON.stringify({
                     title: editForm.title,
                     description: editForm.description,
@@ -147,7 +158,12 @@ export default function PatientRecordsPage() {
         try {
             const res = await fetch(`${backendUrl}/api/patient/records/${recordId}/archive`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    'x-user-email': session?.user?.email || '',
+                    'x-user-role': session?.user?.role || 'patient',
+                    'x-patient-id': session?.user?.patientId || '',
+                },
                 body: JSON.stringify({
                     patientId: session?.user?.patientId,
                 }),
@@ -175,6 +191,11 @@ export default function PatientRecordsPage() {
         try {
             const res = await fetch(`${backendUrl}/api/patient/records/${recordId}?patientId=${session?.user?.patientId}`, {
                 method: "DELETE",
+                headers: {
+                    'x-user-email': session?.user?.email || '',
+                    'x-user-role': session?.user?.role || 'patient',
+                    'x-patient-id': session?.user?.patientId || '',
+                },
             });
 
             const data = await res.json();
