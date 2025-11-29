@@ -134,6 +134,20 @@ export default function PatientAI() {
                 currentPath={pathname}
                 userName={session.user.name || ""}
                 userEmail={session.user.email || ""}
+                patientId={session.user.patientId || ""}
+            />
+
+            <main className="flex-1 ml-64 p-8 overflow-y-auto">
+                <div className="max-w-7xl mx-auto">
+                    <div className="mb-8">
+                        <h2 className="text-3xl font-bold text-gray-900">DL-Powered Reasoning</h2>
+                        <p className="text-gray-600 mt-1">Advanced diagnostic analysis using deep learning models</p>
+                    </div>
+
+                    <div className="flex border-b border-gray-200 mb-6">
+                        {tabs.map((tab) => (
+                            <button
+                                key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-6 py-3 font-medium transition-colors border-b-2 ${activeTab === tab.id
                                     ? 'border-cyan-600 text-cyan-600'
