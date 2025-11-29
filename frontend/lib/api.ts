@@ -13,6 +13,8 @@ api.interceptors.request.use(async (config) => {
     try {
         const session = await getSession();
 
+        console.log('[API Client] Session status:', session ? 'Found' : 'Not found');
+
         if (session?.user?.email) {
             // For now, we'll use a simple approach: pass user info in headers
             // In production, you'd want to implement proper JWT tokens
@@ -25,9 +27,17 @@ api.interceptors.request.use(async (config) => {
             if (session.user.providerId) {
                 config.headers['x-provider-id'] = session.user.providerId;
             }
+
+            console.log('[API Client] Added headers:', {
+                email: session.user.email,
+                role: session.user.role,
+                patientId: session.user.patientId
+            });
+        } else {
+            console.warn('[API Client] No session or user email found');
         }
     } catch (error) {
-        console.warn('Failed to get session for API request:', error);
+        console.error('[API Client] Failed to get session:', error);
     }
 
     return config;

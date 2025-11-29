@@ -79,6 +79,12 @@ export default function PatientRecordsPage() {
 
             const res = await fetch(`${backendUrl}/api/patient/upload`, {
                 method: "POST",
+                headers: {
+                    // Add session headers for backend authentication
+                    'x-user-email': session?.user?.email || '',
+                    'x-user-role': session?.user?.role || 'patient',
+                    'x-patient-id': session?.user?.patientId || '',
+                },
                 body: formData,
             });
 
