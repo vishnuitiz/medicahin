@@ -60,6 +60,7 @@ export default function PatientRecordsPage() {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
+                    'ngrok-skip-browser-warning': 'true', // Skip ngrok warning page
                 },
             });
 
@@ -103,6 +104,7 @@ export default function PatientRecordsPage() {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
+                    'ngrok-skip-browser-warning': 'true',
                 },
                 body: formData,
             });
@@ -144,6 +146,7 @@ export default function PatientRecordsPage() {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
+                    'ngrok-skip-browser-warning': 'true',
                 },
                 body: JSON.stringify({
                     title: editForm.title,
@@ -176,6 +179,7 @@ export default function PatientRecordsPage() {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
+                    'ngrok-skip-browser-warning': 'true',
                 },
                 body: JSON.stringify({
                     patientId: session?.user?.patientId,
@@ -208,6 +212,7 @@ export default function PatientRecordsPage() {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
+                    'ngrok-skip-browser-warning': 'true',
                 },
             });
 
