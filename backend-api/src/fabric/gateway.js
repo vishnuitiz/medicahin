@@ -9,7 +9,7 @@ async function initStorage() {
     if (useDatabase) return;
 
     try {
-        const { connectDB } = require('../config/database');
+        const connectDB = require('../config/database');
         await connectDB();
         useDatabase = true;
         console.log('✅ Using MongoDB for storage');
