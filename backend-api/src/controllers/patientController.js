@@ -73,6 +73,13 @@ const patientController = {
 
             await record.save();
 
+            console.log(`📝 Saved record to MongoDB:`, {
+                recordId: record.recordId,
+                patientId: record.patientId,
+                title: record.title,
+                status: record.status
+            });
+
             await logActivity(patientId, 'patient', 'upload', 'record', recordId, {
                 title,
                 type,
@@ -111,6 +118,16 @@ const patientController = {
             }
 
             const records = await MedicalRecord.find(query).sort({ createdAt: -1 }).lean();
+
+            console.log(`🔍 Fetching records with query:`, query);
+            console.log(`📊 Found ${records.length} records`);
+            if (records.length > 0) {
+                console.log(`📋 First record:`, {
+                    recordId: records[0].recordId,
+                    patientId: records[0].patientId,
+                    title: records[0].title
+                });
+            }
 
             res.json({
                 success: true,

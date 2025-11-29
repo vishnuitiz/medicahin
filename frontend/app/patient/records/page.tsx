@@ -47,18 +47,31 @@ export default function PatientRecordsPage() {
 
     const fetchRecords = async () => {
         try {
+            console.log('[DEBUG] fetchRecords called, patientId:', session?.user?.patientId);
+            console.log('[DEBUG] activeTab:', activeTab);
+            console.log('[DEBUG] backendUrl:', backendUrl);
+
             setLoading(true);
-            const res = await fetch(`${backendUrl}/api/patient/records/${session?.user?.patientId}?status=${activeTab}`, {
+            const url = `${backendUrl}/api/patient/records/${session?.user?.patientId}?status=${activeTab}`;
+            console.log('[DEBUG] Fetching from:', url);
+
+            const res = await fetch(url, {
                 headers: {
                     'x-user-email': session?.user?.email || '',
                     'x-user-role': session?.user?.role || 'patient',
                     'x-patient-id': session?.user?.patientId || '',
                 },
             });
+
+            console.log('[DEBUG] Response status:', res.status);
             const data = await res.json();
+            console.log('[DEBUG] Response data:', data);
 
             if (data.success) {
+                console.log('[DEBUG] Setting records:', data.records?.length || 0);
                 setRecords(data.records || []);
+            } else {
+                console.error('[DEBUG] Fetch failed:', data.error);
             }
         } catch (error) {
             console.error("Failed to fetch records:", error);
